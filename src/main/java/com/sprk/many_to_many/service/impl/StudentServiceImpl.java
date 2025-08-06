@@ -31,5 +31,12 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
+    @Override
+    public Student findByRollNo(int rollNo) {
+
+        return studentRepository.findById(rollNo).orElse(null);
+
+    }
+
 
 }

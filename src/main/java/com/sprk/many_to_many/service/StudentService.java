@@ -11,4 +11,6 @@ public interface StudentService {
     public Student addStudent(Student student);
 
     public List<Student> getAllStudents();
+
+    public Student findByRollNo(int rollNo);
 }

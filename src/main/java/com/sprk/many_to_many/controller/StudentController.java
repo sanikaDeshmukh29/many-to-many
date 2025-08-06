@@ -31,4 +31,12 @@ public class StudentController {
         return ResponseEntity.ok(allStudents);
     }
 
+    @GetMapping("/get-by-rollno/{rollNo}")
+    public ResponseEntity<?> getByRollNo(@PathVariable int rollNo){
+
+        Student student = studentService.findByRollNo(rollNo);
+
+        return ResponseEntity.ok(student);
+    }
+
 }
