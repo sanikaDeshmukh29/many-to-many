@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/student")
@@ -21,4 +23,12 @@ public class StudentController {
       return ResponseEntity.ok(saveStudent);
 
     }
+
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAllStudents(){
+        List<Student> allStudents = studentService.getAllStudents();
+        return ResponseEntity.ok(allStudents);
+    }
+
 }

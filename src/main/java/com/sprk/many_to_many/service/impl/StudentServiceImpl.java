@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
@@ -22,4 +24,12 @@ public class StudentServiceImpl implements StudentService {
 
        return savedStudent;
     }
+
+    @Override
+    public List<Student> getAllStudents() {
+
+        return studentRepository.findAll();
+    }
+
+
 }
