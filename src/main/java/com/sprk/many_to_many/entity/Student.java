@@ -5,13 +5,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Student {
@@ -37,6 +43,5 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "club_id")
     )
             @JsonIgnoreProperties("students")
-
-    List<Club> clubs = new ArrayList<>();
+    Set<Club> clubs = new HashSet<>();
 }
