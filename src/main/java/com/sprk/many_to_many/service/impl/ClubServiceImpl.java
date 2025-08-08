@@ -79,4 +79,22 @@ public class ClubServiceImpl implements ClubService {
 
         return clubMapper.toDto(savedClub);
     }
+
+    @Override
+    public ClubDto addStudentToClub(int clubId, int studentRollNo) {
+
+        Student dbStudent = studentRepository.findById(studentRollNo).orElse(null);
+        Club dbClub = clubRepository.findById(clubId).orElse(null);
+
+        dbClub.getStudents().add(dbStudent);
+        dbStudent.getClubs().add(dbClub);
+
+       clubRepository.save(dbClub);
+//       studentRepository.save(dbStudent);
+
+       Club savedClub = clubRepository.findById(clubId).orElse(null);
+
+
+        return clubMapper.toDto(savedClub);
+    }
 }

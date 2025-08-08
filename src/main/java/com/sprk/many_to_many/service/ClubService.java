@@ -17,4 +17,6 @@ public interface ClubService {
     public boolean deleteClub(int clubId);
 
     public ClubDto updateClub(int clubId,ClubDto clubDto);
+
+    public ClubDto addStudentToClub(int clubId, int studentRollNo);
 }

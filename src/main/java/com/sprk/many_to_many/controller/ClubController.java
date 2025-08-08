@@ -1,6 +1,7 @@
 package com.sprk.many_to_many.controller;
 
 import com.sprk.many_to_many.dto.ClubDto;
+import com.sprk.many_to_many.entity.Club;
 import com.sprk.many_to_many.service.ClubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,15 @@ public class ClubController {
            return ResponseEntity.ok(updatedDto);
     }
        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("club not found");
+    }
+
+    @PutMapping("add-student-to-club/{clubId}/{studentRollNo}")
+    public ResponseEntity<?> addStudentToClub(@PathVariable int clubId, @PathVariable int studentRollNo){
+
+        ClubDto addStudentToClub = clubService.addStudentToClub(clubId,studentRollNo);
+
+        return ResponseEntity.ok(addStudentToClub);
+
     }
 
 
