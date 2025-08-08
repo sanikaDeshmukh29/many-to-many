@@ -1,5 +1,6 @@
 package com.sprk.many_to_many.controller;
 
+import com.sprk.many_to_many.dto.StudentDto;
 import com.sprk.many_to_many.entity.Student;
 import com.sprk.many_to_many.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping(value = "/save-student",consumes = {"application/json", "application/json;charset=UTF-8"})
-    public ResponseEntity<?> addStudent(@RequestBody Student student){
+    public ResponseEntity<?> addStudent(@RequestBody StudentDto studentDto){
 
-      Student saveStudent = studentService.addStudent(student);
+      StudentDto saveStudent = studentService.addStudent(studentDto);
 
       return ResponseEntity.ok(saveStudent);
 
@@ -29,28 +30,28 @@ public class StudentController {
 
     @GetMapping("/get-all")
     public ResponseEntity<?> getAllStudents(){
-        Set<Student> allStudents = studentService.getAllStudents();
-        return ResponseEntity.ok(allStudents);
+        Set<StudentDto> allStudentsDto = studentService.getAllStudents();
+        return ResponseEntity.ok(allStudentsDto);
     }
 
     @GetMapping("/get-by-rollno/{rollNo}")
     public ResponseEntity<?> getByRollNo(@PathVariable int rollNo){
 
-        Student student = studentService.findByRollNo(rollNo);
+        StudentDto studentDto = studentService.findByRollNo(rollNo);
 
-        return ResponseEntity.ok(student);
+        return ResponseEntity.ok(studentDto);
     }
 
-//    @PutMapping("/edit-student/{rollNo}")
-//    public ResponseEntity<?> updateStudent(@PathVariable int rollNo, @RequestBody Student student){
-//
-//        Student updatedStudent = studentService.updateStudent(rollNo,student);
-//
-//        if(updatedStudent != null){
-//            return ResponseEntity.ok(updatedStudent);
-//        }
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("roll number not found");
-//
-//    }
+    @PutMapping("/edit-student/{rollNo}")
+    public ResponseEntity<?> updateStudent(@PathVariable int rollNo, @RequestBody StudentDto studentDto){
+
+        StudentDto updatedStudent = studentService.updateStudent(rollNo,studentDto);
+
+        if(updatedStudent != null){
+            return ResponseEntity.ok(updatedStudent);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("roll number not found");
+
+    }
 
 }

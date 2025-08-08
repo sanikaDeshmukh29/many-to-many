@@ -45,9 +45,7 @@ public class ClubController {
            return ResponseEntity.ok(updatedDto);
     }
        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("club not found");
-
-
-}
+    }
 
 
 }

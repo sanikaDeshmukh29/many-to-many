@@ -1,10 +1,12 @@
 package com.sprk.many_to_many.service.impl;
 
+import com.sprk.many_to_many.dto.StudentDto;
 import com.sprk.many_to_many.entity.Club;
 import com.sprk.many_to_many.entity.Student;
 import com.sprk.many_to_many.repository.ClubRepository;
 import com.sprk.many_to_many.repository.StudentRepository;
 import com.sprk.many_to_many.service.StudentService;
+import com.sprk.many_to_many.util.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,25 +27,50 @@ public class StudentServiceImpl implements StudentService {
 
     private final ClubRepository clubRepository;
 
+    private final StudentMapper studentMapper;
+
     @Override
-    public Student addStudent(Student student) {
+    public StudentDto addStudent(StudentDto studentDto) {
 
-       Student savedStudent = studentRepository.save(student);
+       Student saveStudent = studentMapper.toEntity(studentDto);
 
-       return savedStudent;
+       Student savedStudent = studentRepository.save(saveStudent);
+
+       return studentMapper.toDto(savedStudent);
     }
 
     @Override
-    public Set<Student> getAllStudents() {
+    public Set<StudentDto> getAllStudents() {
 
-        return new HashSet<>(studentRepository.findAll());
+        return studentRepository.findAll()
+                .stream()
+                .map(studentMapper::toDto)
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public Student findByRollNo(int rollNo) {
+    public StudentDto findByRollNo(int rollNo) {
 
-        return studentRepository.findById(rollNo).orElse(null);
+        Student student = studentRepository.findById(rollNo).orElse(null);
 
+        return studentMapper.toDto(student);
+
+    }
+
+    @Override
+    public StudentDto updateStudent(int rollNo, StudentDto studentDto) {
+
+        Student dbStudent = studentRepository.findById(rollNo).orElse(null);
+
+        if(dbStudent != null){
+
+            dbStudent.setRollNo(rollNo);
+            Student updatedStudent = studentRepository.save(dbStudent);
+
+            return studentMapper.toDto(updatedStudent);
+        }
+
+        return null;
     }
 
 //    @Override

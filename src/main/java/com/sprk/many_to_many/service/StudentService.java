@@ -1,5 +1,6 @@
 package com.sprk.many_to_many.service;
 
+import com.sprk.many_to_many.dto.StudentDto;
 import com.sprk.many_to_many.entity.Student;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,11 @@ import java.util.Set;
 
 public interface StudentService {
 
-    public Student addStudent(Student student);
+    public StudentDto addStudent(StudentDto studentDto);
 
-    public Set<Student> getAllStudents();
+    public Set<StudentDto> getAllStudents();
 
-    public Student findByRollNo(int rollNo);
+    public StudentDto findByRollNo(int rollNo);
 
-//    public Student updateStudent(int rollNo, Student student);
+    public StudentDto updateStudent(int rollNo, StudentDto studentDto);
 }
